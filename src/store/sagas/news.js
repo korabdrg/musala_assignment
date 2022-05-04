@@ -1,6 +1,7 @@
 import {call, put, select, takeLatest} from 'redux-saga/effects';
 import * as types from '../types/news';
 import api from '../../api/index.js';
+import * as newsActions from '../actions/news';
 
 export function* getNews() {
   try {
@@ -8,7 +9,7 @@ export function* getNews() {
       api.get,
       'https://newsapi.org/v2/everything?q=apple&from=2022-05-03&to=2022-05-03&sortBy=popularity&apiKey=637393da9b834d59a6ba4ce026223a72',
     );
-    console.log(response);
+    yield put(newsActions.getNewsSuccess(response));
   } catch (error) {
     console.log('Error on login', error);
   }
