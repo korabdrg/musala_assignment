@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, Image} from 'react-native';
+import {Text, View, RefreshControl, ScrollView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import * as newsActions from '../../store/actions/news';
 import styles from '../../css/Home';
@@ -8,6 +8,7 @@ import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
   const dispatch = useDispatch();
   const news = useSelector(state => state.news.news);
 
@@ -33,8 +34,20 @@ const Home = () => {
     }
   };
 
+  const onRefreshPull = () => {
+    dispatch(newsActions.getNews());
+    setSearchValue('');
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl
+          onRefresh={() => onRefreshPull()}
+          refreshing={refreshing}
+        />
+      }>
       <View style={styles.searchWrapper}>
         <TextInput
           placeholder="Search..."
@@ -57,7 +70,7 @@ const Home = () => {
           No results match your query. Try something different.
         </Text>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
