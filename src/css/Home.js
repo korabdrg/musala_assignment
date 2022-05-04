@@ -32,6 +32,36 @@ const styles = StyleSheet.create({
     fontWeight: '200',
     color: 'black',
   },
+  searchBar: {
+    height: 35,
+    width: '50%',
+    alignSelf: 'center',
+    borderWidth: 0.5,
+    borderColor: '#1e1c1c',
+    borderRadius: 4,
+    padding: 3,
+    marginTop: 10,
+  },
+  searchButton: {
+    backgroundColor: '#0d77a0',
+    width: '30%',
+    height: 30,
+    alignSelf: 'center',
+    marginTop: 10,
+    textAlign: 'center',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  searchButtonText: {
+    color: 'white',
+  },
+  searchWrapper: {
+    marginBottom: 30,
+  },
+  noResultsText: {
+    alignSelf: 'center',
+  },
 });
 
 export default styles;

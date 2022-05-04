@@ -4,8 +4,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import * as newsActions from '../../store/actions/news';
 import styles from '../../css/Home';
 import Article from '../../components/home/Article';
+import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 
 const Home = () => {
+  const [searchValue, setSearchValue] = useState('');
   const dispatch = useDispatch();
   const news = useSelector(state => state.news.news);
 
@@ -13,11 +15,48 @@ const Home = () => {
     dispatch(newsActions.getNews());
   }, []);
 
+  const searchButtonClicked = () => {
+    if (searchValue == '') {
+      dispatch(newsActions.getNews());
+      return;
+    }
+    let filteredNews = news.filter(t => t.title.includes(searchValue));
+    dispatch(newsActions.newsFiltered(filteredNews));
+  };
+
+  const handleInputChange = e => {
+    if (e == '') {
+      setSearchValue(e);
+      dispatch(newsActions.getNews()); //this action is called here because it's a local search and not an API search
+    } else {
+      setSearchValue(e);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {news?.map((item, index) => {
-        return <Article item={item} index={index} />;
-      })}
+      <View style={styles.searchWrapper}>
+        <TextInput
+          placeholder="Search..."
+          value={searchValue}
+          style={styles.searchBar}
+          onChangeText={e => handleInputChange(e)}
+        />
+        <TouchableOpacity
+          style={styles.searchButton}
+          onPress={() => searchButtonClicked()}>
+          <Text style={styles.searchButtonText}>Search</Text>
+        </TouchableOpacity>
+      </View>
+      {news.length > 0 ? (
+        news.map((item, index) => {
+          return <Article item={item} key={index} />;
+        })
+      ) : (
+        <Text style={styles.noResultsText}>
+          No results match your query. Try something different.
+        </Text>
+      )}
     </View>
   );
 };
