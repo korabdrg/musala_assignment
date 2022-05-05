@@ -11,7 +11,7 @@ const Settings = () => {
     dispatch(generalActions.getDarkModePreference(color));
   };
   return (
-    <View>
+    <View style={{marginTop: 50}}>
       <Text onPress={() => handleDarkMode('dark')}>DARK</Text>
       <Text onPress={() => handleDarkMode('white')}>WHITE</Text>
     </View>

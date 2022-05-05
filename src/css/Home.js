@@ -6,9 +6,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    paddingTop: 50,
   },
   darkContainer: {
-    flex: 1,
     backgroundColor: '#1e1c1c',
   },
   articleWrapper: {
