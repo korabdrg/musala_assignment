@@ -4,7 +4,7 @@ let initialState = {news: []};
 
 export default (state = initialState, action) => {
   let {type} = action;
-  console.log(action);
+
   switch (type) {
     case 'GET_NEWS_SUCCESS':
       return {

@@ -5,12 +5,15 @@ import * as newsActions from '../../store/actions/news';
 import styles from '../../css/Home';
 import Article from '../../components/home/Article';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
+import {useDarkMode} from '../../hooks/isDarkMode';
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const dispatch = useDispatch();
   const news = useSelector(state => state.news.news);
+  const general = useSelector(state => state.general);
+  const isDarkMode = useDarkMode();
 
   useEffect(() => {
     dispatch(newsActions.getNews());
@@ -41,7 +44,7 @@ const Home = () => {
 
   return (
     <ScrollView
-      style={styles.container}
+      style={general.color ? styles.darkContainer : styles.container}
       refreshControl={
         <RefreshControl
           onRefresh={() => onRefreshPull()}
@@ -52,7 +55,7 @@ const Home = () => {
         <TextInput
           placeholder="Search..."
           value={searchValue}
-          style={styles.searchBar}
+          style={[general.color && styles.darkSearchBar, styles.searchBar]}
           onChangeText={e => handleInputChange(e)}
         />
         <TouchableOpacity
@@ -63,10 +66,14 @@ const Home = () => {
       </View>
       {news.length > 0 ? (
         news.map((item, index) => {
-          return <Article item={item} key={index} />;
+          return <Article item={item} key={index} isDark={general.color} />;
         })
       ) : (
-        <Text style={styles.noResultsText}>
+        <Text
+          style={[
+            general.color && styles.darkArticleTitle,
+            styles.noResultsText,
+          ]}>
           No results match your query. Try something different.
         </Text>
       )}

@@ -1,8 +1,15 @@
-import {StyleSheet} from 'react-native';
+import React from 'react';
+import {StyleSheet, Appearance} from 'react-native';
 
+const isDarkMode = true;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
+  },
+  darkContainer: {
+    flex: 1,
+    backgroundColor: '#1e1c1c',
   },
   articleWrapper: {
     flexDirection: 'row',
@@ -27,6 +34,9 @@ const styles = StyleSheet.create({
     color: '#1e1c1c',
     marginBottom: 5,
   },
+  darkArticleTitle: {
+    color: '#fff',
+  },
   articleDescription: {
     fontSize: 11,
     fontWeight: '200',
@@ -38,9 +48,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderWidth: 0.5,
     borderColor: '#1e1c1c',
+    backgroundColor: '#fff',
     borderRadius: 4,
     padding: 3,
     marginTop: 10,
+  },
+  darkSearchBar: {
+    borderColor: '#fff',
   },
   searchButton: {
     backgroundColor: '#0d77a0',
