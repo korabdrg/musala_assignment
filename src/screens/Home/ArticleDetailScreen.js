@@ -1,11 +1,21 @@
 import React from 'react';
-import {View, Image, Text, ScrollView, SafeAreaView} from 'react-native';
+import {View, Image, Text, ScrollView, Linking} from 'react-native';
 import styles from '../../css/ArticleDetailView';
 import {useSelector} from 'react-redux';
 
 const ArticleDetailScreen = ({route, navigation}) => {
   let {item} = route.params;
   const general = useSelector(state => state.general);
+
+  const pressLink = async url => {
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  };
+
   return (
     <View
       style={general.color ? styles.darkArticleWrapper : styles.articleWrapper}>
@@ -17,7 +27,9 @@ const ArticleDetailScreen = ({route, navigation}) => {
       <Image source={{uri: item.urlToImage}} style={styles.articleImage} />
       <View style={styles.scrollViewWrapper}>
         <ScrollView contentContainerStyle={styles.contentWrapper}>
-          <Text style={[styles.articleTitle, general.color && styles.darkText]}>
+          <Text
+            onPress={() => pressLink(item.url)}
+            style={[styles.articleTitle, general.color && styles.darkText]}>
             {item.title}
           </Text>
           <Text
