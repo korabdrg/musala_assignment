@@ -17,6 +17,11 @@ const Settings = () => {
 
   const {i18n, t} = useTranslation(); //i18n instance
 
+  const languageButtonPress = lang => {
+    AsyncStorage.setItem('selectedLanguage', lang);
+    i18n.changeLanguage(lang);
+  };
+
   return (
     <View style={[styles.mainWrapper, general.color && styles.darkMainWrapper]}>
       <Text
@@ -36,8 +41,8 @@ const Settings = () => {
         title={t('choose_language')}
         firstOption={t('albanian')}
         secondOption={t('english')}
-        firstButtonPress={() => i18n.changeLanguage('al')}
-        secondButtonPress={() => i18n.changeLanguage('en')}
+        firstButtonPress={() => languageButtonPress('al')}
+        secondButtonPress={() => languageButtonPress('en')}
         isDark={general.color}
       />
     </View>

@@ -12,6 +12,8 @@ import styles from '../../css/Home/Home';
 import Article from '../../components/home/Article';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {useDarkMode} from '../../hooks/isDarkMode';
+import {languageChooser} from '../../hooks/languageChooser';
+import {useTranslation} from 'react-i18next';
 
 const Home = props => {
   const [searchValue, setSearchValue] = useState('');
@@ -20,6 +22,8 @@ const Home = props => {
   const news = useSelector(state => state.news.news);
   const general = useSelector(state => state.general);
   const isDarkMode = useDarkMode();
+  const language = languageChooser();
+  const {t} = useTranslation(); //i18n instance
 
   useEffect(() => {
     dispatch(newsActions.getNews());
@@ -59,7 +63,7 @@ const Home = props => {
       }>
       <View style={styles.searchWrapper}>
         <TextInput
-          placeholder="Search..."
+          placeholder={t('search')}
           value={searchValue}
           style={[general.color && styles.darkSearchBar, styles.searchBar]}
           onChangeText={e => handleInputChange(e)}
@@ -67,7 +71,7 @@ const Home = props => {
         <TouchableOpacity
           style={styles.searchButton}
           onPress={() => searchButtonClicked()}>
-          <Text style={styles.searchButtonText}>Search</Text>
+          <Text style={styles.searchButtonText}>{t('search')}</Text>
         </TouchableOpacity>
       </View>
       {news.length > 0 ? (
