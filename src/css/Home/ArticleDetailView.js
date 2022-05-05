@@ -43,6 +43,11 @@ const styles = StyleSheet.create({
   scrollViewWrapper: {
     height: '100%',
   },
+  linkText: {
+    marginTop: 30,
+    color: '#3e73e8',
+    textDecorationLine: 'underline',
+  },
 });
 
 export default styles;

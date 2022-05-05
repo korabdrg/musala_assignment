@@ -14,7 +14,7 @@ export default function MyStack() {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: general.color ? 'rgba(34,36,40,1)' : '#fff',
+          backgroundColor: general.color ? '#1e1c1c' : '#fff',
         },
       }}>
       <Tab.Screen options={{headerShown: false}} name="Home" component={Home} />

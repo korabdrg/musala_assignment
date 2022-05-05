@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Image, Text, ScrollView, Linking} from 'react-native';
-import styles from '../../css/ArticleDetailView';
+import styles from '../../css/Home/ArticleDetailView';
 import {useSelector} from 'react-redux';
 
 const ArticleDetailScreen = ({route, navigation}) => {
@@ -27,9 +27,7 @@ const ArticleDetailScreen = ({route, navigation}) => {
       <Image source={{uri: item.urlToImage}} style={styles.articleImage} />
       <View style={styles.scrollViewWrapper}>
         <ScrollView contentContainerStyle={styles.contentWrapper}>
-          <Text
-            onPress={() => pressLink(item.url)}
-            style={[styles.articleTitle, general.color && styles.darkText]}>
+          <Text style={[styles.articleTitle, general.color && styles.darkText]}>
             {item.title}
           </Text>
           <Text
@@ -40,6 +38,9 @@ const ArticleDetailScreen = ({route, navigation}) => {
             style={[styles.articleContent, general.color && styles.darkText]}>
             {item.content}
           </Text>
+          {/* <Text style={styles.linkText} onPress={() => pressLink(item.url)}>
+            Read it on your default browser
+          </Text> */}
         </ScrollView>
       </View>
     </View>

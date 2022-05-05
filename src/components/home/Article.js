@@ -1,9 +1,10 @@
 import React from 'react';
 import {Text, View, Image} from 'react-native';
-import styles from '../../css/Home';
+import styles from '../../css/Home/Home';
 
 const Article = props => {
   let {item, isDark} = props;
+
   return (
     <View style={styles.articleWrapper}>
       <Image source={{uri: item.urlToImage}} style={styles.articleImage} />

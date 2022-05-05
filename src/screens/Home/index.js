@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import * as newsActions from '../../store/actions/news';
-import styles from '../../css/Home';
+import styles from '../../css/Home/Home';
 import Article from '../../components/home/Article';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {useDarkMode} from '../../hooks/isDarkMode';
