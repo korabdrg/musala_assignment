@@ -8,7 +8,11 @@ const Article = props => {
     <View style={styles.articleWrapper}>
       <Image source={{uri: item.urlToImage}} style={styles.articleImage} />
       <View style={styles.articleTextWrapper}>
-        <Text style={[styles.articleTitle, isDark && styles.darkArticleTitle]}>
+        <Text
+          onPress={() =>
+            props.navigation.navigate('ArticleDetailView', {item: item})
+          }
+          style={[styles.articleTitle, isDark && styles.darkArticleTitle]}>
           {item.title}
         </Text>
         <Text

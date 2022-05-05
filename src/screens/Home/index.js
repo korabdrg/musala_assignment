@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, RefreshControl, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  RefreshControl,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import * as newsActions from '../../store/actions/news';
 import styles from '../../css/Home';
@@ -7,7 +13,7 @@ import Article from '../../components/home/Article';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {useDarkMode} from '../../hooks/isDarkMode';
 
-const Home = () => {
+const Home = props => {
   const [searchValue, setSearchValue] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const dispatch = useDispatch();
@@ -66,7 +72,14 @@ const Home = () => {
       </View>
       {news.length > 0 ? (
         news.map((item, index) => {
-          return <Article item={item} key={index} isDark={general.color} />;
+          return (
+            <Article
+              navigation={props.navigation}
+              item={item}
+              key={index}
+              isDark={general.color}
+            />
+          );
         })
       ) : (
         <Text
