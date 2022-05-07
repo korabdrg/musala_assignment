@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, SafeAreaView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as generalActions from '../../store/actions/general';
 import {useDispatch, useSelector} from 'react-redux';
@@ -25,7 +25,8 @@ const Settings = () => {
   };
 
   return (
-    <View style={[styles.mainWrapper, isDark && styles.darkMainWrapper]}>
+    <SafeAreaView
+      style={[styles.mainWrapper, isDark && styles.darkMainWrapper]}>
       <Text style={[styles.generalSettingsText, isDark && styles.whiteText]}>
         {t('general_settings')}
       </Text>
@@ -46,7 +47,7 @@ const Settings = () => {
         secondButtonPress={() => languageButtonPress('en')}
         isDarkMode={isDark}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

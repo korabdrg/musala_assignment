@@ -8,11 +8,9 @@ import './src/localization/i18n.config';
 
 const App: () => Node = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <ReduxProvider store={store}>
-        <StackNavigator />
-      </ReduxProvider>
-    </SafeAreaView>
+    <ReduxProvider store={store}>
+      <StackNavigator />
+    </ReduxProvider>
   );
 };
 

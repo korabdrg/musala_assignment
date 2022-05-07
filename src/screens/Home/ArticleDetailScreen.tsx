@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Image, Text, ScrollView, Linking} from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  ScrollView,
+  Linking,
+  SafeAreaView,
+} from 'react-native';
 import styles from '../../css/Home/ArticleDetailView';
 import {useSelector} from 'react-redux';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
@@ -36,7 +43,7 @@ const ArticleDetailScreen: React.FC<Data> = ({route, navigation}) => {
   // };
 
   return (
-    <View
+    <SafeAreaView
       style={general.color ? styles.darkArticleWrapper : styles.articleWrapper}>
       <Text
         onPress={() => navigation.goBack()}
@@ -62,7 +69,7 @@ const ArticleDetailScreen: React.FC<Data> = ({route, navigation}) => {
           </Text> */}
         </ScrollView>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

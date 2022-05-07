@@ -5,6 +5,7 @@ import {
   RefreshControl,
   ScrollView,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import * as newsActions from '../../store/actions/news';
@@ -56,44 +57,47 @@ const Home = props => {
     setSearchValue('');
   };
   return (
-    <ScrollView
-      style={isDark ? styles.darkContainer : styles.container}
-      refreshControl={
-        <RefreshControl
-          onRefresh={() => onRefreshPull()}
-          refreshing={refreshing}
-        />
-      }>
-      <View style={styles.searchWrapper}>
-        <TextInput
-          placeholder={t('search')}
-          value={searchValue}
-          style={[isDark && styles.darkSearchBar, styles.searchBar]}
-          onChangeText={e => handleInputChange(e)}
-        />
-        <TouchableOpacity
-          style={styles.searchButton}
-          onPress={() => searchButtonClicked()}>
-          <Text style={styles.searchButtonText}>{t('search')}</Text>
-        </TouchableOpacity>
-      </View>
-      {articles.length > 0 ? (
-        articles.map((item, index) => {
-          return (
-            <Article
-              navigation={props.navigation}
-              item={item}
-              key={index}
-              isDark={isDark}
-            />
-          );
-        })
-      ) : (
-        <Text style={[isDark && styles.darkArticleTitle, styles.noResultsText]}>
-          No results match your query. Try something different.
-        </Text>
-      )}
-    </ScrollView>
+    <SafeAreaView style={isDark ? styles.darkContainer : styles.container}>
+      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            onRefresh={() => onRefreshPull()}
+            refreshing={refreshing}
+          />
+        }>
+        <View style={styles.searchWrapper}>
+          <TextInput
+            placeholder={t('search')}
+            value={searchValue}
+            style={[isDark && styles.darkSearchBar, styles.searchBar]}
+            onChangeText={e => handleInputChange(e)}
+          />
+          <TouchableOpacity
+            style={styles.searchButton}
+            onPress={() => searchButtonClicked()}>
+            <Text style={styles.searchButtonText}>{t('search')}</Text>
+          </TouchableOpacity>
+        </View>
+        {articles.length > 0 ? (
+          articles.map((item, index) => {
+            return (
+              <Article
+                navigation={props.navigation}
+                item={item}
+                key={index}
+                isDark={isDark}
+              />
+            );
+          })
+        ) : (
+          <Text
+            style={[isDark && styles.darkArticleTitle, styles.noResultsText]}>
+            No results match your query. Try something different.
+          </Text>
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
