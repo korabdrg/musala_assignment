@@ -1,5 +1,0 @@
-export const GET_NEWS = 'GET_NEWS';
-export const GET_NEWS_SUCCESS = 'GET_NEWS_SUCCESS';
-
-export const FILTER_NEWS = 'FILTER_NEWS';
-export const FILTER_NEWS_SUCCESS = 'FILTER_NEWS_SUCCESS';

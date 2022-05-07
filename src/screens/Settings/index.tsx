@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as generalActions from '../../store/actions/general';
 import {useDispatch, useSelector} from 'react-redux';
@@ -9,8 +9,10 @@ import styles from '../../css/Settings/Settings';
 
 const Settings = () => {
   const dispatch = useDispatch();
-  const general = useSelector(state => state.general);
-  const handleDarkMode = color => {
+  const isDark: DarkMode = useSelector(
+    (state: DarkModeColor) => state.general.color,
+  );
+  const handleDarkMode = (color: string) => {
     AsyncStorage.setItem('colorScheme', color);
     dispatch(generalActions.getDarkModePreference(color));
   };
@@ -23,9 +25,8 @@ const Settings = () => {
   };
 
   return (
-    <View style={[styles.mainWrapper, general.color && styles.darkMainWrapper]}>
-      <Text
-        style={[styles.generalSettingsText, general.color && styles.whiteText]}>
+    <View style={[styles.mainWrapper, isDark && styles.darkMainWrapper]}>
+      <Text style={[styles.generalSettingsText, isDark && styles.whiteText]}>
         {t('general_settings')}
       </Text>
       <ButtonsToggle
@@ -34,7 +35,7 @@ const Settings = () => {
         secondOption={t('light')}
         firstButtonPress={() => handleDarkMode('dark')}
         secondButtonPress={() => handleDarkMode('white')}
-        isDark={general.color}
+        isDarkMode={isDark}
       />
 
       <ButtonsToggle
@@ -43,7 +44,7 @@ const Settings = () => {
         secondOption={t('english')}
         firstButtonPress={() => languageButtonPress('al')}
         secondButtonPress={() => languageButtonPress('en')}
-        isDark={general.color}
+        isDarkMode={isDark}
       />
     </View>
   );

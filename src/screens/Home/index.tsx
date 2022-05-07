@@ -19,8 +19,12 @@ const Home = props => {
   const [searchValue, setSearchValue] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const dispatch = useDispatch();
-  const news = useSelector(state => state.news.news);
-  const general = useSelector(state => state.general);
+  const articles: readonly IArticle[] = useSelector(
+    (state: ArticleState) => state.news.articles,
+  );
+  const isDark: DarkMode = useSelector(
+    (state: DarkModeColor) => state.general.color,
+  );
   const isDarkMode = useDarkMode();
   const language = languageChooser();
   const {t} = useTranslation(); //i18n instance
@@ -34,7 +38,7 @@ const Home = props => {
       dispatch(newsActions.getNews());
       return;
     }
-    let filteredNews = news.filter(t => t.title.includes(searchValue));
+    let filteredNews = articles.filter(t => t.title.includes(searchValue));
     dispatch(newsActions.newsFiltered(filteredNews));
   };
 
@@ -51,10 +55,9 @@ const Home = props => {
     dispatch(newsActions.getNews());
     setSearchValue('');
   };
-
   return (
     <ScrollView
-      style={general.color ? styles.darkContainer : styles.container}
+      style={isDark ? styles.darkContainer : styles.container}
       refreshControl={
         <RefreshControl
           onRefresh={() => onRefreshPull()}
@@ -65,7 +68,7 @@ const Home = props => {
         <TextInput
           placeholder={t('search')}
           value={searchValue}
-          style={[general.color && styles.darkSearchBar, styles.searchBar]}
+          style={[isDark && styles.darkSearchBar, styles.searchBar]}
           onChangeText={e => handleInputChange(e)}
         />
         <TouchableOpacity
@@ -74,23 +77,19 @@ const Home = props => {
           <Text style={styles.searchButtonText}>{t('search')}</Text>
         </TouchableOpacity>
       </View>
-      {news.length > 0 ? (
-        news.map((item, index) => {
+      {articles.length > 0 ? (
+        articles.map((item, index) => {
           return (
             <Article
               navigation={props.navigation}
               item={item}
               key={index}
-              isDark={general.color}
+              isDark={isDark}
             />
           );
         })
       ) : (
-        <Text
-          style={[
-            general.color && styles.darkArticleTitle,
-            styles.noResultsText,
-          ]}>
+        <Text style={[isDark && styles.darkArticleTitle, styles.noResultsText]}>
           No results match your query. Try something different.
         </Text>
       )}

@@ -2,19 +2,38 @@ import React from 'react';
 import {View, Image, Text, ScrollView, Linking} from 'react-native';
 import styles from '../../css/Home/ArticleDetailView';
 import {useSelector} from 'react-redux';
+import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
-const ArticleDetailScreen = ({route, navigation}) => {
-  let {item} = route.params;
-  const general = useSelector(state => state.general);
-
-  const pressLink = async url => {
-    const supported = await Linking.canOpenURL(url);
-    if (supported) {
-      await Linking.openURL(url);
-    } else {
-      Alert.alert(`Don't know how to open this URL: ${url}`);
-    }
+type Data = {
+  navigation: NavigationProp<ParamListBase>;
+  route: {
+    params: {
+      item: {
+        title: string;
+        urlToImage: string;
+        author: string;
+        content: string;
+      };
+    };
   };
+};
+
+const ArticleDetailScreen: React.FC<Data> = ({route, navigation}) => {
+  let {item} = route.params;
+  // const general = useSelector(state => state.general);
+
+  const general = {
+    color: true,
+  };
+
+  // const pressLink = async url => {
+  //   const supported = await Linking.canOpenURL(url);
+  //   if (supported) {
+  //     await Linking.openURL(url);
+  //   } else {
+  //     Alert.alert(`Don't know how to open this URL: ${url}`);
+  //   }
+  // };
 
   return (
     <View

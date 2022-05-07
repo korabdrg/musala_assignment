@@ -1,18 +1,21 @@
 import React from 'react';
 import {Text, View, Image} from 'react-native';
 import styles from '../../css/Home/Home';
+import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
-const Article = props => {
-  let {item, isDark} = props;
+type Data = {
+  item: {urlToImage: string; title: string; description: string};
+  isDark: string;
+  navigation: NavigationProp<ParamListBase>;
+};
 
+const Article: React.FC<Data> = ({item, isDark, navigation}) => {
   return (
     <View style={styles.articleWrapper}>
       <Image source={{uri: item.urlToImage}} style={styles.articleImage} />
       <View style={styles.articleTextWrapper}>
         <Text
-          onPress={() =>
-            props.navigation.navigate('ArticleDetailView', {item: item})
-          }
+          onPress={() => navigation.navigate('ArticleDetailView', {item: item})}
           style={[styles.articleTitle, isDark && styles.darkArticleTitle]}>
           {item.title}
         </Text>
