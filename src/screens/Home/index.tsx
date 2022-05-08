@@ -6,6 +6,7 @@ import {
   ScrollView,
   SafeAreaView,
   StatusBar,
+  Linking,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import * as newsActions from '../../store/actions/news';
@@ -32,6 +33,12 @@ const Home = props => {
 
   useEffect(() => {
     dispatch(newsActions.getNews());
+    Linking.addEventListener(
+      'url',
+      ({url}) =>
+        url == 'deeplinking://articles/1' &&
+        props.navigation.navigate('ArticleDetailView', {item: articles[0]}),
+    );
   }, []);
 
   const searchButtonClicked = () => {
