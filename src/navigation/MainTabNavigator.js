@@ -1,6 +1,4 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Settings from '../screens/Settings';
@@ -20,12 +18,12 @@ export default function MyStack() {
         },
       }}>
       <Tab.Screen
-        options={{headerShown: false}}
+        options={{headerShown: false, tabBarIcon: () => {}}}
         name={t('home')}
         component={Home}
       />
       <Tab.Screen
-        options={{headerShown: false}}
+        options={{headerShown: false, tabBarIcon: () => {}}}
         name={t('settings')}
         component={Settings}
       />
